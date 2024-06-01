@@ -144,7 +144,7 @@ public class EasyJson {
             // 抽取单个字段转成 arrayList类似 [1,2,3,4]
             else if (expression.matches("\\w+(->)arrayList$")) {
                 String key = expression.replace("->arrayList", "");
-                ArrayNode list = new ObjectMapper().createArrayNode();
+                ArrayNode list = objectMapper.createArrayNode();
                 for (int i = 0; i < js.size(); i++) {
                     list.add(js.get(i).get(key));
                 }
@@ -152,9 +152,9 @@ public class EasyJson {
             } else if (expression.contains(",")) {
                 //从集合里抽 支持多字段以,逗号分隔
                 String[] fields = expression.split(",");
-                ArrayNode result = new ObjectMapper().createArrayNode();
+                ArrayNode result = objectMapper.createArrayNode();
                 for (int i = 0; i < js.size(); i++) {
-                    ObjectNode json = new ObjectMapper().createObjectNode();
+                    ObjectNode json = objectMapper.createObjectNode();
                     for (String key : fields) {
                         json.put(key, js.get(i).get(key));
                     }
